@@ -47,3 +47,27 @@
     @apply bg-gradient-to-r to-primary via-orange from-primary bg-size-200 bg-pos-0 hover:bg-pos-100 text-white transition-all duration-500;
   }
 }
+
+/* Estilos para personalizar a barra de rolagem */
+/* Barra de rolagem em navegadores baseados em WebKit (Chrome, Safari, etc.) */
+::-webkit-scrollbar {
+  width: 8px; /* largura da barra de rolagem */
+}
+
+::-webkit-scrollbar-track {
+  background: #fcfaf8; /* cor de fundo da barra de rolagem */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ddd9d7; /* cor do polegar da barra de rolagem */
+  border-radius: 6px; /* borda arredondada do polegar */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b9b9b9; /*barra de rolagem quando hover */
+}
+
+/* Estilo adicional usando Tailwind CSS */
+.scrollbar-container {
+  overflow-y: auto; /* habilita a rolagem vertical */
+}
