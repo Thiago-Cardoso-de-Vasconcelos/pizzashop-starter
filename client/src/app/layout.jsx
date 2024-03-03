@@ -1,4 +1,5 @@
 //css
+import Nav from './components/Nav';
 import './globals.css';
 
 //importando fonts no next!
@@ -31,6 +32,7 @@ export default function RootLayout({ children }) {
         ${robotoCondensed.variable}
         font-quicksand`}
       >
+        <Nav />
         {children}
       </body>
     </html>
