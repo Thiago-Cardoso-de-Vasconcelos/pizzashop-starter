@@ -78,14 +78,17 @@ const Pizza = ({ pizza }) => {
           style={modalStyles}
           onRequestClose={closeModal}
           contentLabel='Pizza Modal'
-          className='bg-white w-full h-full lg:max-w-[900px] lg:max-h-[600px] lg:rounded-[30px] lg:fixed lg:top-[50%] lg:left-[50%] lg:translate-x-[-50%] lg:translate-y-[-50%] outline-none'
+          className='bg-white w-full h-full lg:max-w-[900px] lg:max-h-[550px] lg:rounded-[30px] lg:fixed lg:top-[50%] lg:left-[50%] lg:translate-x-[-50%] lg:translate-y-[-50%] outline-none'
         >
           {/* close modal icon */}
-          <div onClick={closeModal} className='absolute z-30 right-2 top-2 hover:scale-110 duration-200 cursor-pointer'>
-            <IoCloseOutline className='text-4xl text-orange'/>
+          <div
+            onClick={closeModal}
+            className='absolute z-30 right-2 top-2 hover:scale-110 duration-200 cursor-pointer'
+          >
+            <IoCloseOutline className='text-4xl text-orange' />
           </div>
           {/* pizza details */}
-          <PizzaDetails pizza={pizza} modal={modal} setModal={setModal}/>
+          <PizzaDetails pizza={pizza} modal={modal} setModal={setModal} />
         </Modal>
       )}
     </div>

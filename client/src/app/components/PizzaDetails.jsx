@@ -53,19 +53,19 @@ const PizzaDetails = ({ pizza }) => {
             src={pizza.image}
             alt={`pizza de ${pizza.name}`}
             priority={1}
-            className='mx-auto relative'
+            className='mx-auto relative mb-2'
           />
         </div>
       </div>
       {/* details */}
       <div className='flex flex-col flex-1'>
         <div className='flex-1 p-2 text-center lg:text-left'>
-          <div className='flex-1 bg-white overflow-y-scroll h-[40vh] pr-2'>
+          <div className='flex-1 bg-white overflow-y-scroll h-[38vh] lg:h-[65vh] pr-2'>
             {/* name */}
             <div className='font-semibold'>
               <h2 className='capitalize text-3xl mb-1'>{pizza.name}</h2>
               {/* size & crust text */}
-              <div className='bg-yellow-200 mb-6 text-lg font-medium'>
+              <div className='mb-6 text-lg font-medium'>
                 <span>
                   {size === 'small'
                     ? '25cm'
@@ -79,15 +79,16 @@ const PizzaDetails = ({ pizza }) => {
               </div>
             </div>
             {/* size selection */}
-            <SizeSelection  pizza={pizza} size={size} setSize={setSize}/>
+            <SizeSelection pizza={pizza} size={size} setSize={setSize} />
             {/* crust selection */}
-            <CrustSelection  crust={crust} setCrust={setCrust}/>
+            <CrustSelection crust={crust} setCrust={setCrust} />
             {/* toppings */}
-            <div>Choose topping</div>
+            <div className='mb-4 text-xl font-semibold'>Choose topping</div>
             {/* toopping list */}
-            <div>
+            <div className='flex flex-1 flex-wrap gap-2 py-1 justify-center lg:justify-start'>
               {pizza.toppings?.map((topping, index) => {
-                return <Topping key={index} />;
+                return <Topping  topping={topping} additionalTopping={additionalTopping} setAdditionalTopping={setAdditionalTopping}
+                key={index} />;
               })}
             </div>
           </div>
