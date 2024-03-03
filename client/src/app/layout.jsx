@@ -1,4 +1,5 @@
 //css
+import CartMobileIcon from './components/CartMobileIcon';
 import Nav from './components/Nav';
 import './globals.css';
 
@@ -33,6 +34,7 @@ export default function RootLayout({ children }) {
         font-quicksand`}
       >
         <Nav />
+        <CartMobileIcon/>
         {children}
       </body>
     </html>
