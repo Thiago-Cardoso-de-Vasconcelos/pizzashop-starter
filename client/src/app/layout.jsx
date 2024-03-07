@@ -42,7 +42,7 @@ export default function RootLayout({ children }) {
       >
         <Nav />
         <CartMobileIcon/>
-        
+        <CartMobile />
         {children}
       </body>
     </html>

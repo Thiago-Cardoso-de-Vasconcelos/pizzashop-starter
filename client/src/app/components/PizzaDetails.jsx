@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 //next image
 import Image from 'next/image';
 //components
 import SizeSelection from './SizeSelection';
 import CrustSelection from './CrustSelection';
 import Topping from './Topping';
+//context
+import { CartContext } from '../context/CartContext';
 
 const PizzaDetails = ({ pizza }) => {
   //pizza size state
@@ -18,6 +20,8 @@ const PizzaDetails = ({ pizza }) => {
   //prise state
   const [price, setPrice] = useState(0);
 
+  const { addToCart } = useContext(CartContext);
+
   //set the price based on the pizza size
   useEffect(() => {
     size === 'small'
@@ -27,7 +31,13 @@ const PizzaDetails = ({ pizza }) => {
       : size === 'large'
       ? setPrice(parseFloat(pizza.priceLg + additionalToppingPrice).toFixed(2))
       : null;
-  });
+  }, [
+    size,
+    pizza.priceSm,
+    pizza.priceMd,
+    pizza.priceLg,
+    additionalToppingPrice,
+  ]);
 
   //set additional topping price
   useEffect(() => {
@@ -87,15 +97,34 @@ const PizzaDetails = ({ pizza }) => {
             {/* toopping list */}
             <div className='flex flex-1 flex-wrap gap-2 py-1 justify-center lg:justify-start'>
               {pizza.toppings?.map((topping, index) => {
-                return <Topping  topping={topping} additionalTopping={additionalTopping} setAdditionalTopping={setAdditionalTopping}
-                key={index} />;
+                return (
+                  <Topping
+                    topping={topping}
+                    additionalTopping={additionalTopping}
+                    setAdditionalTopping={setAdditionalTopping}
+                    key={index}
+                  />
+                );
               })}
             </div>
           </div>
         </div>
         {/* add to cart btn */}
         <div className='h-full flex items-center px-2 lg:items-end'>
-          <button className='btn btn-lg gradient w-full flex justify-center gap-x-2'>
+          <button
+            onClick={() =>
+              addToCart(
+                pizza.id,
+                pizza.image,
+                pizza.name,
+                price,
+                additionalTopping,
+                size,
+                crust,
+              )
+            }
+            className='btn btn-lg gradient w-full flex justify-center gap-x-2'
+          >
             <div>Add to card for</div>
             <div>$ {price}</div>
           </button>
