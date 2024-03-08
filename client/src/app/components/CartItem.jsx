@@ -3,10 +3,11 @@ import Image from 'next/image';
 //icons
 import { BiPlus, BiMinus } from 'react-icons/bi';
 import { IoCloseOutline } from 'react-icons/io5';
+import Topping from './Topping';
 
 const CartItem = ({ pizza }) => {
   return (
-    <div className='bg-pink-100 select-none'>
+    <div className=' select-none'>
       <div className=' flex gap-x-4 mb-2'>
         {/* image */}
         <div className='flex justify-center items-center'>
@@ -18,9 +19,13 @@ const CartItem = ({ pizza }) => {
           <div className='text-lg capitalize font-bold'>{pizza.name}</div>
           <div className='flex flex-col gap-y-1'>
             {/* crust */}
-            <div className='capitalize font-medium text-[15px]'>{pizza.crust} crust</div>
+            <div className='capitalize font-medium text-[15px]'>
+              {pizza.crust} crust
+            </div>
             {/* size */}
-            <div className='capitalize mb-2 font-medium text-[15px] '>{pizza.size} size</div>
+            <div className='capitalize mb-2 font-medium text-[15px] '>
+              {pizza.size} size
+            </div>
             {/* quantity controls */}
             <div className='flex items-center gap-x-1'>
               {/* decrease quantity */}
@@ -45,13 +50,21 @@ const CartItem = ({ pizza }) => {
           </div>
           {/* price */}
           <div>
-            <span className='text-[17px] font-medium font-robotoCondensed'>${parseFloat(pizza.price * pizza.amount).toFixed(2
-              )}</span>
+            <span className='text-[17px] font-medium font-robotoCondensed'>
+              ${parseFloat(pizza.price * pizza.amount).toFixed(2)}
+            </span>
           </div>
         </div>
       </div>
       {/* toppings */}
-      <div>toppings</div>
+      <div className='flex flex-wrap items-center gap-3 p-6 border-b border-black/10'>
+        <div className='font-semibold'>Toppings: {pizza.addtionalTopping.length === 0 && 'None'}</div>
+        {pizza.addtionalTopping.map((Topping, index) => {
+          return (
+            <div className='capitalize text-sm gradient font-medium px-3 py-1 rounded-full leading-none' key={index}>{Topping.name}</div>
+          )
+        })}
+    </div>
     </div>
   );
 };
