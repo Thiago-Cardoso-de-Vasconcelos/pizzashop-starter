@@ -4,8 +4,12 @@ import Image from 'next/image';
 import { BiPlus, BiMinus } from 'react-icons/bi';
 import { IoCloseOutline } from 'react-icons/io5';
 import Topping from './Topping';
+import { useContext } from 'react';
+// context 
+import { CartContext } from '../context/CartContext';
 
 const CartItem = ({ pizza }) => {
+  const { removeItem } = useContext(CartContext)
   return (
     <div className=' select-none'>
       <div className=' flex gap-x-4 mb-2'>
@@ -34,7 +38,7 @@ const CartItem = ({ pizza }) => {
               </div>
               {/* pizza amount */}
               <div className='font-semibold flex flex-1 max-w-[30px] justify-center items-center text-sm'>
-                1
+                {pizza.amount}
               </div>
               {/* increase quantity */}
               <div className='w-[18px] h-[18px] flex justify-center items-center cursor-pointer text-white gradient rounded-full '>
@@ -45,7 +49,7 @@ const CartItem = ({ pizza }) => {
         </div>
         <div className='flex flex-col justify-between'>
           {/* remove item */}
-          <div className='text-2xl flex justify-center items-center self-end cursor-pointer hover:scale-110 duration-100 transition-all text-orange'>
+          <div  onClick={()=>removeItem(pizza.id, pizza.price, pizza.crust)} className='text-2xl flex justify-center items-center self-end cursor-pointer hover:scale-110 duration-100 transition-all text-orange'>
             <IoCloseOutline />
           </div>
           {/* price */}

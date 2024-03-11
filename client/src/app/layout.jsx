@@ -10,7 +10,10 @@ import CartProvider from './context/CartContext';
 
 //importando fonts no next!
 import { Bangers, Quicksand, Roboto_Condensed } from 'next/font/google';
+//components 
 import CartMobile from './components/CartMobile';
+import CartDesktop from './components/CardDesktop';
+
 
 const bangers = Bangers({
   subsets: ['latin'],
@@ -44,6 +47,8 @@ export default function RootLayout({ children }) {
         <CartMobileIcon/>
         <CartMobile />
         {children}
+        <CartDesktop/>
+        
       </body>
     </html>
     </CartProvider>
