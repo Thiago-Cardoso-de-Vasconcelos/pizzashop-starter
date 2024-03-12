@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 
 // create context
 export const CartContext = createContext();
@@ -10,6 +10,26 @@ const CartProvider = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
   //cart state
   const [cart, setCart] = useState([]);
+  //cart total state
+  const [cartTotal, setCartTotal] = useState(0);
+  //item amount state
+  const [itemAmount, setItemAmount] = useState(0);
+
+  //update item amount
+  useEffect(() => {
+    const amount = cart.reduce((a, c) => {
+      return a + c.amount;
+    }, 0);
+    setItemAmount(amount);
+  }, [cart]);
+  
+  // update cart total price 
+  useEffect(() => {
+    const price = cart.reduce((a, c)=> {
+      return a + Number(c.price) * c.amount
+    }, 0);
+    setCartTotal(price);
+  }, [cart])
 
   //add to cart
   const addToCart = (id, image, name, price, addtionalTopping, size, crust) => {
@@ -17,18 +37,25 @@ const CartProvider = ({ children }) => {
     addtionalTopping.sort((a, b) => a.name.localeCompare(b.name));
 
     const newItem = {
-        id, image, name, price, addtionalTopping, size, crust, amount: 1
-    }
+      id,
+      image,
+      name,
+      price,
+      addtionalTopping,
+      size,
+      crust,
+      amount: 1,
+    };
 
     const cartItemIndex = cart.findIndex(
-    (item)=> 
-    item.id === id &&
-    item.price === price &&
-    item.size === size &&
-    // check if additionalTopping array is equal
-    JSON.stringify(item.addtionalTopping)  ===
-    JSON.stringify(addtionalTopping) &&
-    item.crust === crust
+      (item) =>
+        item.id === id &&
+        item.price === price &&
+        item.size === size &&
+        // check if additionalTopping array is equal
+        JSON.stringify(item.addtionalTopping) ===
+          JSON.stringify(addtionalTopping) &&
+        item.crust === crust,
     );
 
     if (cartItemIndex === -1) {
@@ -39,28 +66,63 @@ const CartProvider = ({ children }) => {
       setCart(newCart);
     }
 
-
     // open the cart everytime you add a product
     setIsOpen(true);
-     
-    console.log(cart)
-     
   };
 
-  // remove item 
+  // remove item
   const removeItem = (id, price, crust) => {
     const itemIndex = cart.findIndex(
-      (item) => item.id === id && item.price === price && item.crust === crust
+      (item) => item.id === id && item.price === price && item.crust === crust,
     );
     if (itemIndex !== -1) {
       const newCart = [...cart];
       newCart.splice(itemIndex, 1);
       setCart(newCart);
     }
-  }
+  };
+
+  // increase amount
+  const increaseAmount = (id, price) => {
+    const itemIndex = cart.findIndex(
+      (item) => item.id === id && item.price === price,
+    );
+    if (itemIndex !== -1) {
+      const newCart = [...cart];
+      newCart[itemIndex].amount += 1;
+      setCart(newCart);
+    }
+  };
+
+  // decrease amount
+  const decreaseAmount = (id, price) => {
+    const itemIndex = cart.findIndex(
+      (item) => item.id === id && item.price === price,
+    );
+    if (itemIndex !== -1) {
+      const newCart = [...cart];
+      if (newCart[itemIndex].amount > 1) {
+        newCart[itemIndex].amount -= 1;
+      }
+
+      setCart(newCart);
+    }
+  };
 
   return (
-    <CartContext.Provider value={{ isOpen, setIsOpen, addToCart, cart, removeItem }}>
+    <CartContext.Provider
+      value={{
+        isOpen,
+        setIsOpen,
+        addToCart,
+        cart,
+        removeItem,
+        increaseAmount,
+        decreaseAmount,
+        itemAmount,
+        cartTotal,
+      }}
+    >
       {children}
     </CartContext.Provider>
   );

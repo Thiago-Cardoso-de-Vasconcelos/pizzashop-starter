@@ -9,7 +9,7 @@ import { useContext } from 'react';
 import { CartContext } from '../context/CartContext';
 
 const CartItem = ({ pizza }) => {
-  const { removeItem } = useContext(CartContext)
+  const { removeItem, increaseAmount, decreaseAmount } = useContext(CartContext)
   return (
     <div className=' select-none'>
       <div className=' flex gap-x-4 mb-2'>
@@ -33,15 +33,15 @@ const CartItem = ({ pizza }) => {
             {/* quantity controls */}
             <div className='flex items-center gap-x-1'>
               {/* decrease quantity */}
-              <div className='w-[18px] h-[18px] flex justify-center items-center cursor-pointer text-white gradient rounded-full '>
+              <div onClick={() => decreaseAmount(pizza.id, pizza.price)} className='w-[18px] h-[18px] flex justify-center items-center cursor-pointer text-white gradient rounded-full '>
                 <BiMinus />
               </div>
               {/* pizza amount */}
-              <div className='font-semibold flex flex-1 max-w-[30px] justify-center items-center text-sm'>
+              <div  className='font-semibold flex flex-1 max-w-[30px] justify-center items-center text-sm'>
                 {pizza.amount}
               </div>
               {/* increase quantity */}
-              <div className='w-[18px] h-[18px] flex justify-center items-center cursor-pointer text-white gradient rounded-full '>
+              <div onClick={() => increaseAmount(pizza.id, pizza.price)} className='w-[18px] h-[18px] flex justify-center items-center cursor-pointer text-white gradient rounded-full '>
                 <BiPlus />
               </div>
             </div>
