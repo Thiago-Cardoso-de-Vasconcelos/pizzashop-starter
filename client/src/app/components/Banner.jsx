@@ -80,7 +80,7 @@ const Banner = () => {
               className='absolute top-80 left-0 hidden xl:flex'
             >
               <Image
-                src={'/chilli-2.png'}
+                src={'/garlic-1.png'}
                 width={84}
                 height={72}
                 alt=''

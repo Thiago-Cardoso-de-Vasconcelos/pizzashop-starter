@@ -13,6 +13,7 @@ import { Bangers, Quicksand, Roboto_Condensed } from 'next/font/google';
 //components 
 import CartMobile from './components/CartMobile';
 import CartDesktop from './components/CardDesktop';
+import Footer from './components/Footer';
 
 
 const bangers = Bangers({
@@ -48,6 +49,7 @@ export default function RootLayout({ children }) {
         <CartMobile />
         {children}
         <CartDesktop/>
+        <Footer />
         
       </body>
     </html>
