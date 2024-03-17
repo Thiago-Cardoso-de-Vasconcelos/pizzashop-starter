@@ -9,39 +9,46 @@ const CheckoutDetails = ({ setModal }) => {
   const [successMsg, setSuccessMsg] = useState(false);
   const [count, setCount] = useState(5);
 
-  // counter 
-  useEffect(()=> {
-    if (successMsg){
-      const timer = setTimeout(()=> {
+  // counter
+  useEffect(() => {
+    if (successMsg) {
+      const timer = setTimeout(() => {
         if (count > 1) {
-          setCount(count - 1)
+          setCount(count - 1);
         }
-      }, 1000)
+      }, 1000);
       return () => clearTimeout(timer);
     }
   });
 
-  // close modela after 5 sec 
-  useEffect(()=>{
-    if(successMsg) {
-      const timer = setTimeout(()=> {
+  // close modela after 5 sec
+  useEffect(() => {
+    if (successMsg) {
+      const timer = setTimeout(() => {
         setSuccessMsg(false);
         //clear cart
         setCart([]);
-        // close modal 
+        // close modal
         setModal(false);
-      },2000);
-      return () => clearTimeout(timer)
+      }, 2000);
+      return () => clearTimeout(timer);
     }
-    
   });
 
   return (
     <div className='h-full'>
       {successMsg ? (
         <div className='flex flex-col h-full justify-center items-center lg:h-[600px] px-6'>
-          <h2 className='text-2xl font-semibold text-center'>Thank you! The order has been placed!</h2>
-          <Image src={'/success-1.gif'} width={150} height={150} alt='image success'/>
+          <h2 className='text-2xl font-semibold text-center'>
+            Thank you! The order has been placed!
+          </h2>
+          <Image
+            src={'/success-1.gif'}
+            width={150}
+            height={150}
+            alt='Success'
+            unoptimized
+          />
           <div>
             This Window will close in <span>{count}</span> seconds
           </div>
@@ -154,7 +161,12 @@ const CheckoutDetails = ({ setModal }) => {
                 </div>
               </div>
               {/* place order btn  */}
-              <button  onClick={()=> setSuccessMsg(true)} className=' btn btn-lg gradient w-f'>Place order</button>
+              <button
+                onClick={() => setSuccessMsg(true)}
+                className=' btn btn-lg gradient w-f'
+              >
+                Place order
+              </button>
             </div>
           </div>
         </div>
