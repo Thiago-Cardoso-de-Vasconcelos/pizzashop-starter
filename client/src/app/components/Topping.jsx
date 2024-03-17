@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 //next image
 import Image from 'next/image';
 //icons
@@ -6,7 +6,6 @@ import { IoMdCheckmark } from 'react-icons/io';
 
 const Topping = ({ topping, additionalTopping, setAdditionalTopping }) => {
   //checkbox state
-
   const [isChecked, setIsChecked] = useState(false);
 
   // handle checkbox
@@ -15,7 +14,7 @@ const Topping = ({ topping, additionalTopping, setAdditionalTopping }) => {
   };
 
   //handle topping
-  const handleTopping = () => {
+  const handleTopping = useCallback(() => {
     if (isChecked) {
       //use set to ensure unique values
       const newToppings = new Set([...additionalTopping, { ...topping }]);
@@ -28,11 +27,11 @@ const Topping = ({ topping, additionalTopping, setAdditionalTopping }) => {
       });
       setAdditionalTopping(newToppings)
     }
-  };
+  }, [isChecked, additionalTopping, setAdditionalTopping, topping]);
 
   useEffect(() => {
     handleTopping();
-  }, [isChecked]);
+  }, [isChecked, handleTopping]); // Adicionando handleTopping ao array de dependências
 
   return (
     <div
